@@ -7,12 +7,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 
-export default function NestedList(prop) {
+export default function NestedList(prop:any) {
   const { click } = prop;
   const [open, setOpen] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const handleClick = (item) => {
+  const handleClick = (item:any) => {
     // setOpen(!open);
     setSelectedIndex(item.id)
     click(item.id)

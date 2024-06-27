@@ -42,7 +42,7 @@ const 丰田 = [
   createData('卡罗拉', 2024, true, true, true, false, 1),
 ];
 const 本田 = [
-
+  createData('型格', 2023, false, true, false, false),
 ];
 const 马自达 = [
   createData('昂克塞拉', 2023, true, true, false, false, 1),
@@ -54,7 +54,7 @@ const 尼桑 = [
   createData('轩逸', 2024, false, true, true, false),
 ];
 
-export default function BasicTable(prop) {
+export default function BasicTable(prop:any) {
   const { index } = prop
   let data = new Map()
   data.set(0, 现代)
@@ -81,7 +81,7 @@ export default function BasicTable(prop) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {rows.map((row:any, index:any) => (
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
