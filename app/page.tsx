@@ -2,7 +2,10 @@
 import Header from "@/components/header";
 import List from "@/components/list";
 import SubList from "@/components/subList"
+import Stack from '@mui/material/Stack';
 import { useState } from "react";
+
+
 export default function Home() {
   const [idx, setIdx] = useState(0)
   const clickBrand = (index: number) => {
@@ -12,11 +15,15 @@ export default function Home() {
   return (
     <>
       {/* <Header></Header> */}
-      <div className="flex h-[100vh]">
+      <Stack
+        className="h-[100vh]"
+        direction="row"
+        justifyContent="center"
+        alignItems="flex-start"
+        spacing={2}>
         <SubList click={clickBrand}></SubList>
         <List index={idx}></List>
-      </div>
-
+      </Stack>
     </>
   );
 }

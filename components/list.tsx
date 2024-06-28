@@ -68,7 +68,7 @@ export default function BasicTable(prop:any) {
   data.set(8, 尼桑)
   let rows = data.get(index)
   return (
-    <TableContainer component={Paper} className='w-full ml-1'>
+    <TableContainer component={Paper} className='w-full h-full'>
       <Table stickyHeader aria-label="simple table">
         <TableHead>
           <TableRow>
