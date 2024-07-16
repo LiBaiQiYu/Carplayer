@@ -7,55 +7,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 
-export default function NestedList(prop:any) {
-  const { click } = prop;
+export default function NestedList(prop: any) {
+  const { click,brands } = prop;
   const [open, setOpen] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const handleClick = (item:any) => {
+  const handleClick = (index: number) => {
     // setOpen(!open);
-    setSelectedIndex(item.id)
-    click(item.id)
+    setSelectedIndex(index)
+    click(index)
   };
-  const brandList = [
-    {
-      name: '现代Hyundai',
-      id: 0,
-    },
-    {
-      name: '起亚KIA',
-      id: 1,
-    },
-    {
-      name: '大众VW',
-      id: 2,
-    },
-    {
-      name: '荣威Roewe',
-      id: 3,
-    },
-    {
-      name: '丰田Toyota',
-      id: 4,
-    },
-    {
-      name: '本田Honda',
-      id: 5,
-    },
-    {
-      name: '马自达Mazda',
-      id: 6,
-    },
-    {
-      name: '名爵MG',
-      id: 7,
-    },
-    {
-      name: '尼桑Nissan',
-      id: 8,
-    },
-  ]
-  const listItem = brandList.map((item) => <ListItemButton selected={selectedIndex === item.id} key={item.id} onClick={() => handleClick(item)}>
+
+  const brandList:Brand[] = brands
+
+  const listItem = brandList.map((item, index) => 
+  <ListItemButton selected={selectedIndex === index} key={index} onClick={() => handleClick(index)}>
     <ListItemIcon>
 
     </ListItemIcon>
