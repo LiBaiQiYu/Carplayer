@@ -22,9 +22,9 @@ export default function NestedList(prop: any) {
 
   const listItem = brandList.map((item, index) => 
   <ListItemButton selected={selectedIndex === index} key={index} onClick={() => handleClick(index)}>
-    <ListItemIcon>
+    {/* <ListItemIcon>
 
-    </ListItemIcon>
+    </ListItemIcon> */}
     <ListItemText primary={item.name} />
   </ListItemButton>
   )
