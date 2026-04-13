@@ -1,4 +1,7 @@
-import { createData } from "../tool"
-export default [
-  createData('卡罗拉', 2024, true, true, true, false, 1),
-]
+import type { CarItem } from '../types';
+
+const data: CarItem[] = [
+  { name: '卡罗拉', year: 2024, carplay: true, carlife: true, hicar: true, iccoa: false, recommend: 1 },
+];
+
+export default data;

@@ -1,5 +1,8 @@
-import { createData } from "../tool"
-export default [
-  createData('EV5', 2023, true, true, false, false),
-  createData('EV5', 2024, true, true, false, false),
-]
+import type { CarItem } from '../types';
+
+const data: CarItem[] = [
+  { name: 'EV5', year: 2023, carplay: true, carlife: true, hicar: false, iccoa: false },
+  { name: 'EV5', year: 2024, carplay: true, carlife: true, hicar: false, iccoa: false },
+];
+
+export default data;

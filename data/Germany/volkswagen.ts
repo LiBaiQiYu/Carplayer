@@ -1,6 +1,9 @@
-import { createData } from "../tool"
-export default [
-  createData('高尔夫8.5th', 2024, true, true, false, false, 1),
-  createData('朗逸', 2024, true, true, false, false),
-  createData('凌渡', 2024, true, true, true, false),
-]
+import type { CarItem } from '../types';
+
+const data: CarItem[] = [
+  { name: '高尔夫8.5th', year: 2024, carplay: true, carlife: true, hicar: false, iccoa: false, recommend: 1 },
+  { name: '朗逸', year: 2024, carplay: true, carlife: true, hicar: false, iccoa: false },
+  { name: '凌渡', year: 2024, carplay: true, carlife: true, hicar: true, iccoa: false },
+];
+
+export default data;
