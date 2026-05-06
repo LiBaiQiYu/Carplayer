@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion';
 import type { Brand, CarItem } from '@/data/types';
 import type { FilterType } from '@/components/feature/FilterBar';
 
@@ -84,7 +85,12 @@ export default function BasicTable({ index, brands, filter, search }: BasicTable
           </thead>
           <tbody>
             {rows.map((row, idx) => (
-              <tr key={idx} className="animate-slide-in" style={{ animationDelay: `${idx * 20}ms` }}>
+              <motion.tr
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: Math.min(idx * 0.02, 0.5) }}
+              >
                 {isAllBrands && (
                   <td>
                     <span className="car-brand">{(row as RowItem).brandName}</span>
@@ -119,7 +125,7 @@ export default function BasicTable({ index, brands, filter, search }: BasicTable
                     {row.iccoa ? '支持' : '不支持'}
                   </span>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>

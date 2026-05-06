@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion';
 import * as React from 'react';
 import type { Brand } from '@/data/types';
 
@@ -37,6 +38,11 @@ export default function BrandSelector({ click, brands, selectedIndex }: BrandSel
     }
   }, [selectedIndex]);
 
+  const brandList = [
+    { name: '全部', country: 'world' as const, isAll: true },
+    ...brands
+  ];
+
   return (
     <div className="glass-card brand-selector-desktop">
       {/* Header */}
@@ -46,28 +52,44 @@ export default function BrandSelector({ click, brands, selectedIndex }: BrandSel
 
       {/* Brand List */}
       <div ref={listRef} className="brand-selector-list">
-        {/* All Brands Option */}
-        <button
-          onClick={() => handleClick(-1)}
-          className={`brand-btn ${selectedIndex === -1 ? 'selected' : ''}`}
-        >
-          <span className="brand-flag">🌐</span>
-          <span className="brand-name">全部</span>
-        </button>
-
-        {brands.map((item, idx) => {
-          const isSelected = selectedIndex === idx;
+        {brandList.map((item, idx) => {
+          const isAll = 'isAll' in item && item.isAll;
+          const actualIndex = isAll ? -1 : idx - 1;
+          const isSelected = isAll ? selectedIndex === -1 : selectedIndex === actualIndex;
           return (
-            <button
-              key={item.name}
-              onClick={() => handleClick(idx)}
+            <motion.button
+              key={isAll ? 'all' : item.name}
+              onClick={() => handleClick(actualIndex)}
               className={`brand-btn ${isSelected ? 'selected' : ''}`}
+              whileTap={{ scale: 0.97 }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: idx * 0.02 }}
             >
-              <span className="brand-flag">
-                {countryFlags[item.country] || '🏎️'}
-              </span>
-              <span className="brand-name">{item.name}</span>
-            </button>
+              <motion.div
+                className="brand-btn-inner"
+                initial={false}
+                animate={isSelected ? 'selected' : 'default'}
+                variants={{
+                  default: {
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                  },
+                  selected: {
+                    background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(139, 92, 246, 0.2))',
+                    borderColor: 'rgba(6, 182, 212, 0.6)',
+                    boxShadow: '0 8px 24px rgba(6, 182, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)',
+                  }
+                }}
+                whileHover="hover"
+              >
+                <span className="brand-flag">
+                  {isAll ? '🌐' : countryFlags[item.country] || '🏎️'}
+                </span>
+                <span className="brand-name">{item.name}</span>
+              </motion.div>
+            </motion.button>
           );
         })}
       </div>

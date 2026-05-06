@@ -33,7 +33,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggle = useCallback((_event: React.MouseEvent) => {
-    if (!document.startViewTransition) {
+    const hasViewTransition = typeof (document as any).startViewTransition === 'function';
+    if (!hasViewTransition) {
       isDarkRef.current = !isDarkRef.current;
       document.documentElement.classList.toggle('dark', isDarkRef.current);
       setIsDark(isDarkRef.current);
@@ -41,6 +42,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    // @ts-expect-error View Transitions API not in TypeScript types
     document.startViewTransition(() => {
       isDarkRef.current = !isDarkRef.current;
       document.documentElement.classList.toggle('dark', isDarkRef.current);

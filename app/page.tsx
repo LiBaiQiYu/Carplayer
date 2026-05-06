@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion';
 import { ThemeToggle } from '@/components';
 import type { FilterType } from '@/components/feature/FilterBar';
 import BrandSelector from '@/components/feature/BrandSelector';
@@ -35,10 +36,28 @@ export default function Home() {
     }
   }, [search]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+  };
+
   return (
     <div className="app-container">
       {/* Header */}
-      <header className="header">
+      <motion.header
+        className="header"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="header-title">
           <h1>CarPlay Hub</h1>
           <p>车载互联兼容查询</p>
@@ -46,30 +65,41 @@ export default function Home() {
         <div className="theme-toggle-wrapper">
           <ThemeToggle />
         </div>
-      </header>
+      </motion.header>
 
-      {/* Stats Overview */}
-      <div className="stats-wrapper">
-        <StatsOverview brands={brands} />
-      </div>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Stats Overview */}
+        <motion.div className="stats-wrapper" variants={itemVariants}>
+          <StatsOverview brands={brands} />
+        </motion.div>
 
-      {/* Brand Pills */}
-      <div className="mobile-brand-wrapper">
-        <MobileBrandSelector click={setIdx} brands={brands} selectedIndex={idx} />
-      </div>
+        {/* Brand Pills */}
+        <motion.div className="mobile-brand-wrapper" variants={itemVariants}>
+          <MobileBrandSelector click={setIdx} brands={brands} selectedIndex={idx} />
+        </motion.div>
 
-      {/* Filter Bar */}
-      <div className="filter-wrapper">
-        <FilterBar activeFilter={filter} onFilterChange={setFilter} />
-      </div>
+        {/* Filter Bar */}
+        <motion.div className="filter-wrapper" variants={itemVariants}>
+          <FilterBar activeFilter={filter} onFilterChange={setFilter} />
+        </motion.div>
 
-      {/* Search Bar */}
-      <div className="search-wrapper">
-        <SearchBar value={search} onChange={setSearch} />
-      </div>
+        {/* Search Bar */}
+        <motion.div className="search-wrapper" variants={itemVariants}>
+          <SearchBar value={search} onChange={setSearch} />
+        </motion.div>
+      </motion.div>
 
       {/* Main Content */}
-      <div className="main-wrapper">
+      <motion.div
+        className="main-wrapper"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
         {/* Desktop: Side by side */}
         <div className="brand-wrapper-desktop">
           <BrandSelector click={setIdx} brands={brands} selectedIndex={idx} />
@@ -77,7 +107,7 @@ export default function Home() {
 
         {/* Table */}
         <BasicTable index={idx} brands={brands} filter={filter} search={search} />
-      </div>
+      </motion.div>
     </div>
   );
 }
